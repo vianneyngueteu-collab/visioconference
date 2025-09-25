@@ -3,41 +3,42 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>WebRTC Multi-Users</title>
+  <title>WebRTC Multi-Utilisateurs</title>
   <link rel="stylesheet" href="style.css">
+  <!-- SimplePeer -->
+  <script src="https://unpkg.com/simple-peer@latest/simplepeer.min.js"></script>
 </head>
 <body>
   <div class="app">
+    <!-- HEADER -->
     <header class="header">
       <h1>✨ WebRTC Connect</h1>
       <p>Appel vidéo P2P multi-utilisateurs</p>
     </header>
 
-    <main class="main">
-      <section class="controls glass-card">
-        <button id="create-room" class="btn primary">➕ Créer une salle</button>
-        <button id="join-room" class="btn success">🔗 Rejoindre</button>
-        <button id="leave-room" class="btn danger">🚪 Quitter</button>
-      </section>
+    <!-- CONTROLES -->
+    <section class="controls glass-card">
+      <button id="create-room" class="btn primary">➕ Créer une salle</button>
+      <button id="join-room" class="btn success">🔗 Rejoindre</button>
+      <button id="leave-room" class="btn danger">🚪 Quitter</button>
+    </section>
 
-      <section class="videos-grid" id="videos-container">
-        <div class="video-card glass-card">
-          <video id="my-video" autoplay muted playsinline></video>
-          <span class="label">Moi</span>
-        </div>                <!-- Les vidéos des autres participants seront ajoutées ici dynamiquement -->
-            </div>
-        </div>
+    <!-- GRILLE VIDÉOS -->
+    <main class="videos-grid" id="videos-container">
+      <div class="video-card glass-card">
+        <video id="my-video" autoplay muted playsinline></video>
+        <span class="label">Moi</span>
+      </div>
+      <!-- Les autres vidéos seront ajoutées dynamiquement -->
+    </main>
 
-        <footer>
-            <p>Connexion WebRTC P2P Multi-utilisateurs - Démonstration technique</p>
-        </footer>
-    </div>
+    <!-- FOOTER -->
+    <footer class="footer">
+      <p>🚀 Démo WebRTC Multi-utilisateurs | Design moderne</p>
+    </footer>
+  </div>
 
-    <!-- SimplePeer -->
-    <script src="https://unpkg.com/simple-peer@latest/simplepeer.min.js"></script>
-
-    <!-- Script principal -->
-    <script src="app.js"></script>
-        
-</body>
+  <!-- Script principal -->
+  <script src="app.js"></script>
+</body>lsgt 
 </html>
