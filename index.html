@@ -1,92 +1,30 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Connexion WebRTC P2P Multi-utilisateurs</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="style.css" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WebRTC Multi-Users</title>
+  <link rel="stylesheet" href="style.css">
+</head>
 <body>
-    <div class="container">
-        <header>
-            <h1><i class="fas fa-users"></i> Connexion WebRTC P2P Multi-utilisateurs</h1>
-            <p class="description">Établissez des connexions peer-to-peer avec plusieurs participants simultanément. Chaque participant se connecte directement aux autres.</p>
-        </header>
+  <div class="app">
+    <header class="header">
+      <h1>✨ WebRTC Connect</h1>
+      <p>Appel vidéo P2P multi-utilisateurs</p>
+    </header>
 
-        <div class="status" id="connection-status">
-            <i class="fas fa-info-circle"></i>
-            <span>Prêt à établir une connexion. Votre ID: <span id="my-id">...</span></span>
-        </div>
+    <main class="main">
+      <section class="controls glass-card">
+        <button id="create-room" class="btn primary">➕ Créer une salle</button>
+        <button id="join-room" class="btn success">🔗 Rejoindre</button>
+        <button id="leave-room" class="btn danger">🚪 Quitter</button>
+      </section>
 
-        <div class="card">
-            <div class="card-header">
-                <i class="fas fa-play-circle"></i>
-                <h2>Gestion de la connexion</h2>
-            </div>
-            <p>Rejoignez une session existante ou créez-en une nouvelle :</p>
-            <div class="btn-container">
-                <button id="create-room" class="btn">
-                    <i class="fas fa-plus-circle"></i> Créer une nouvelle salle
-                </button>
-                <button id="join-room" class="btn btn-success">
-                    <i class="fas fa-sign-in-alt"></i> Rejoindre une salle
-                </button>
-                <button id="leave-room" class="btn btn-warning">
-                    <i class="fas fa-sign-out-alt"></i> Quitter la salle
-                </button>
-            </div>
-            
-            <div id="room-info" style="display: none;">
-                <p><strong>ID de la salle:</strong> <span id="room-id"></span></p>
-                <p><strong>Participants connectés:</strong> <span id="participants-count">0</span></p>
-                
-                <div class="participants-list" id="participants-list">
-                    <!-- Liste des participants générée dynamiquement -->
-                </div>
-            </div>
-        </div>
-
-        <div class="card">
-            <div class="card-header">
-                <i class="fas fa-broadcast-tower"></i>
-                <h2>Signalisation</h2>
-            </div>
-            <p>Partagez cet ID avec d'autres participants pour qu'ils puissent vous rejoindre :</p>
-            <textarea id="offer" rows="4" readonly placeholder="Votre ID de connexion apparaîtra ici..."></textarea>
-            <button class="copy-btn" id="copy-offer">
-                <i class="fas fa-copy"></i> Copier mon ID
-            </button>
-            
-            <p style="margin-top: 20px;">Ou collez l'ID d'un autre participant pour vous connecter directement :</p>
-            <form id="incoming">
-                <textarea rows="4" placeholder="Collez ici l'ID d'un autre participant..."></textarea>
-                <div class="action-buttons">
-                    <button type="submit" class="btn">
-                        <i class="fas fa-user-plus"></i> Se connecter
-                    </button>
-                    <button type="button" class="btn btn-warning" id="clear-input">
-                        <i class="fas fa-trash"></i> Effacer
-                    </button>
-                </div>
-            </form>
-        </div>
-
-        <div class="card">
-            <div class="card-header">
-                <i class="fas fa-video"></i>
-                <h2>Flux vidéo</h2>
-            </div>
-            <div class="video-container" id="videos-container">
-                <div class="video-card">
-                    <div class="video-header">
-                        <div>
-                            <i class="fas fa-user"></i> Moi
-                        </div>
-                        <div class="peer-id">Vous</div>
-                    </div>
-                    <video id="my-video" autoplay muted playsinline></video>
-                </div>
-                <!-- Les vidéos des autres participants seront ajoutées ici dynamiquement -->
+      <section class="videos-grid" id="videos-container">
+        <div class="video-card glass-card">
+          <video id="my-video" autoplay muted playsinline></video>
+          <span class="label">Moi</span>
+        </div>                <!-- Les vidéos des autres participants seront ajoutées ici dynamiquement -->
             </div>
         </div>
 

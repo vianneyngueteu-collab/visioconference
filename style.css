@@ -1,299 +1,86 @@
-        :root {
-            --primary-color: #4361ee;
-            --secondary-color: #3a0ca3;
-            --success-color: #4cc9f0;
-            --warning-color: #f72585;
-            --light-color: #f8f9fa;
-            --dark-color: #212529;
-            --gray-color: #6c757d;
-            --border-radius: 8px;
-            --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            --transition: all 0.3s ease;
-        }
+body {
+  margin: 0;
+  font-family: "Poppins", sans-serif;
+  background: linear-gradient(135deg, #1a1a2e, #16213e);
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+.app {
+  width: 100%;
+  max-width: 1200px;
+  padding: 20px;
+}
 
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
-            color: var(--dark-color);
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-            min-height: 100vh;
-            padding: 20px;
-        }
+.header {
+  text-align: center;
+  margin-bottom: 20px;
+}
 
-        .container {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 20px;
-        }
+.header h1 {
+  font-size: 2rem;
+  margin: 0;
+}
 
-        header {
-            text-align: center;
-            margin-bottom: 30px;
-            padding: 20px;
-            background: white;
-            border-radius: var(--border-radius);
-            box-shadow: var(--box-shadow);
-        }
+.glass-card {
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  padding: 16px;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+  margin: 10px 0;
+}
 
-        h1 {
-            color: var(--primary-color);
-            margin-bottom: 10px;
-            font-size: 2.2rem;
-        }
+.controls {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
 
-        .description {
-            color: var(--gray-color);
-            max-width: 800px;
-            margin: 0 auto;
-        }
+.btn {
+  padding: 10px 16px;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: transform 0.2s;
+}
 
-        .card {
-            background: white;
-            border-radius: var(--border-radius);
-            box-shadow: var(--box-shadow);
-            padding: 20px;
-            margin-bottom: 20px;
-            transition: var(--transition);
-        }
+.btn:hover {
+  transform: scale(1.05);
+}
 
-        .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
-        }
+.primary { background: #4f46e5; color: #fff; }
+.success { background: #10b981; color: #fff; }
+.danger { background: #ef4444; color: #fff; }
 
-        .card-header {
-            display: flex;
-            align-items: center;
-            margin-bottom: 15px;
-            color: var(--primary-color);
-        }
+.videos-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 15px;
+  margin-top: 20px;
+}
 
-        .card-header i {
-            margin-right: 10px;
-            font-size: 1.2rem;
-        }
+.video-card {
+  position: relative;
+  overflow: hidden;
+  border-radius: 12px;
+}
 
-        .btn-container {
-            display: flex;
-            gap: 15px;
-            margin-bottom: 20px;
-            flex-wrap: wrap;
-        }
+video {
+  width: 100%;
+  height: auto;
+  border-radius: 12px;
+}
 
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            padding: 12px 20px;
-            background-color: var(--primary-color);
-            color: white;
-            border: none;
-            border-radius: var(--border-radius);
-            cursor: pointer;
-            font-weight: 600;
-            transition: var(--transition);
-            box-shadow: var(--box-shadow);
-        }
-
-        .btn i {
-            margin-right: 8px;
-        }
-
-        .btn:hover {
-            background-color: var(--secondary-color);
-            transform: translateY(-2px);
-        }
-
-        .btn-success {
-            background-color: var(--success-color);
-        }
-
-        .btn-success:hover {
-            background-color: #3a96c0;
-        }
-
-        .btn-warning {
-            background-color: var(--warning-color);
-        }
-
-        .btn-warning:hover {
-            background-color: #c41a62;
-        }
-
-        textarea {
-            width: 100%;
-            padding: 15px;
-            border: 1px solid #ddd;
-            border-radius: var(--border-radius);
-            font-family: monospace;
-            resize: vertical;
-            min-height: 150px;
-            margin-bottom: 15px;
-            transition: var(--transition);
-        }
-
-        textarea:focus {
-            outline: none;
-            border-color: var(--primary-color);
-            box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.2);
-        }
-
-        .video-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 20px;
-            margin-top: 30px;
-        }
-
-        .video-card {
-            background: white;
-            border-radius: var(--border-radius);
-            box-shadow: var(--box-shadow);
-            overflow: hidden;
-            position: relative;
-        }
-
-        .video-header {
-            background-color: var(--primary-color);
-            color: white;
-            padding: 10px 15px;
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-
-        .video-header i {
-            margin-right: 8px;
-        }
-
-        .peer-id {
-            font-size: 0.8rem;
-            opacity: 0.8;
-        }
-
-        video {
-            width: 100%;
-            height: 200px;
-            display: block;
-            background: var(--dark-color);
-            object-fit: cover;
-        }
-
-        .status {
-            padding: 15px;
-            border-radius: var(--border-radius);
-            margin-bottom: 20px;
-            display: flex;
-            align-items: center;
-            background-color: #e9ecef;
-        }
-
-        .status.connected {
-            background-color: #d1e7dd;
-            color: #0f5132;
-        }
-
-        .status.error {
-            background-color: #f8d7da;
-            color: #842029;
-        }
-
-        .status i {
-            margin-right: 10px;
-            font-size: 1.2rem;
-        }
-
-        .copy-btn {
-            padding: 8px 15px;
-            background-color: var(--primary-color);
-            color: white;
-            border: none;
-            border-radius: var(--border-radius);
-            cursor: pointer;
-            margin-top: 10px;
-            transition: var(--transition);
-            display: inline-flex;
-            align-items: center;
-        }
-
-        .copy-btn i {
-            margin-right: 5px;
-        }
-
-        .copy-btn:hover {
-            background-color: var(--secondary-color);
-        }
-
-        .action-buttons {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 15px;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
-
-        .participants-list {
-            margin-top: 20px;
-            max-height: 200px;
-            overflow-y: auto;
-            border: 1px solid #ddd;
-            border-radius: var(--border-radius);
-            padding: 10px;
-        }
-
-        .participant-item {
-            display: flex;
-            justify-content: space-between;
-            padding: 8px;
-            border-bottom: 1px solid #eee;
-        }
-
-        .participant-item:last-child {
-            border-bottom: none;
-        }
-
-        .participant-name {
-            font-weight: 500;
-        }
-
-        .participant-status {
-            font-size: 0.8rem;
-            padding: 2px 8px;
-            border-radius: 12px;
-            background-color: #e9ecef;
-        }
-
-        .participant-status.connected {
-            background-color: #d1e7dd;
-            color: #0f5132;
-        }
-
-        footer {
-            text-align: center;
-            margin-top: 40px;
-            padding: 20px;
-            color: var(--gray-color);
-            font-size: 0.9rem;
-        }
-
-        @media (max-width: 768px) {
-            .btn-container {
-                flex-direction: column;
-            }
-            
-            .video-container {
-                grid-template-columns: 1fr;
-            }
-            
-            .action-buttons {
-                flex-direction: column;
-            }
-        }
-  
+.label {
+  position: absolute;
+  bottom: 8px;
+  left: 8px;
+  background: rgba(0,0,0,0.6);
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-size: 0.8rem;
+}
