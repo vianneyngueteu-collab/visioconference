@@ -3,59 +3,66 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Connexion WebRTC P2P - SimplePeer</title>
+    <title>Connexion WebRTC P2P Multi-utilisateurs</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="style.css" rel="stylesheet">
-</head>
 <body>
     <div class="container">
         <header>
-            <h1><i class="fas fa-video"></i> Connexion WebRTC P2P avec SimplePeer</h1>
-            <p class="description">Établissez une connexion peer-to-peer sécurisée pour le streaming vidéo en temps réel. Commencez en tant qu'initiateur ou receveur de la connexion.</p>
+            <h1><i class="fas fa-users"></i> Connexion WebRTC P2P Multi-utilisateurs</h1>
+            <p class="description">Établissez des connexions peer-to-peer avec plusieurs participants simultanément. Chaque participant se connecte directement aux autres.</p>
         </header>
 
         <div class="status" id="connection-status">
             <i class="fas fa-info-circle"></i>
-            <span>Prêt à établir une connexion</span>
+            <span>Prêt à établir une connexion. Votre ID: <span id="my-id">...</span></span>
         </div>
 
         <div class="card">
             <div class="card-header">
                 <i class="fas fa-play-circle"></i>
-                <h2>Démarrer une connexion</h2>
+                <h2>Gestion de la connexion</h2>
             </div>
-            <p>Sélectionnez votre rôle dans la connexion :</p>
+            <p>Rejoignez une session existante ou créez-en une nouvelle :</p>
             <div class="btn-container">
-                <button id="start" class="btn">
-                    <i class="fas fa-broadcast-tower"></i> Start (Initiator)
+                <button id="create-room" class="btn">
+                    <i class="fas fa-plus-circle"></i> Créer une nouvelle salle
                 </button>
-                <button id="receive" class="btn btn-success">
-                    <i class="fas fa-satellite-dish"></i> Receive (Receiver)
+                <button id="join-room" class="btn btn-success">
+                    <i class="fas fa-sign-in-alt"></i> Rejoindre une salle
                 </button>
+                <button id="leave-room" class="btn btn-warning">
+                    <i class="fas fa-sign-out-alt"></i> Quitter la salle
+                </button>
+            </div>
+            
+            <div id="room-info" style="display: none;">
+                <p><strong>ID de la salle:</strong> <span id="room-id"></span></p>
+                <p><strong>Participants connectés:</strong> <span id="participants-count">0</span></p>
+                
+                <div class="participants-list" id="participants-list">
+                    <!-- Liste des participants générée dynamiquement -->
+                </div>
             </div>
         </div>
 
         <div class="card">
             <div class="card-header">
                 <i class="fas fa-broadcast-tower"></i>
-                <h2>Signalisation locale (copier ceci)</h2>
+                <h2>Signalisation</h2>
             </div>
-            <textarea id="offer" rows="10" readonly placeholder="Les données de signalisation apparaîtront ici..."></textarea>
+            <p>Partagez cet ID avec d'autres participants pour qu'ils puissent vous rejoindre :</p>
+            <textarea id="offer" rows="4" readonly placeholder="Votre ID de connexion apparaîtra ici..."></textarea>
             <button class="copy-btn" id="copy-offer">
-                <i class="fas fa-copy"></i> Copier
+                <i class="fas fa-copy"></i> Copier mon ID
             </button>
-        </div>
-
-        <div class="card">
-            <div class="card-header">
-                <i class="fas fa-satellite"></i>
-                <h2>Coller le signal distant ici</h2>
-            </div>
+            
+            <p style="margin-top: 20px;">Ou collez l'ID d'un autre participant pour vous connecter directement :</p>
             <form id="incoming">
-                <textarea rows="10" placeholder="Collez ici l'offre ou la réponse reçue de l'autre pair..."></textarea>
+                <textarea rows="4" placeholder="Collez ici l'ID d'un autre participant..."></textarea>
                 <div class="action-buttons">
                     <button type="submit" class="btn">
-                        <i class="fas fa-paper-plane"></i> Envoyer signal
+                        <i class="fas fa-user-plus"></i> Se connecter
                     </button>
                     <button type="button" class="btn btn-warning" id="clear-input">
                         <i class="fas fa-trash"></i> Effacer
@@ -64,24 +71,27 @@
             </form>
         </div>
 
-        <div class="video-container">
-            <div class="video-card">
-                <div class="video-header">
-                    <i class="fas fa-user"></i> Vidéo de l'émetteur (vous-même)
-                </div>
-                <video id="emitter-video" autoplay muted playsinline></video>
+        <div class="card">
+            <div class="card-header">
+                <i class="fas fa-video"></i>
+                <h2>Flux vidéo</h2>
             </div>
-            
-            <div class="video-card">
-                <div class="video-header">
-                    <i class="fas fa-users"></i> Vidéo du pair distant
+            <div class="video-container" id="videos-container">
+                <div class="video-card">
+                    <div class="video-header">
+                        <div>
+                            <i class="fas fa-user"></i> Moi
+                        </div>
+                        <div class="peer-id">Vous</div>
+                    </div>
+                    <video id="my-video" autoplay muted playsinline></video>
                 </div>
-                <video id="receiver-video" autoplay playsinline></video>
+                <!-- Les vidéos des autres participants seront ajoutées ici dynamiquement -->
             </div>
         </div>
 
         <footer>
-            <p>Connexion WebRTC P2P avec SimplePeer - Démo technique</p>
+            <p>Connexion WebRTC P2P Multi-utilisateurs - Démonstration technique</p>
         </footer>
     </div>
 
@@ -90,5 +100,6 @@
 
     <!-- Script principal -->
     <script src="app.js"></script>
+        
 </body>
 </html>
