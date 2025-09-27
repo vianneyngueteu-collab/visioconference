@@ -1,44 +1,122 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>WebRTC Multi-Utilisateurs</title>
-  <link rel="stylesheet" href="style.css">
-  <!-- SimplePeer -->
-  <script src="https://unpkg.com/simple-peer@latest/simplepeer.min.js"></script>
+    <meta charset="UTF-8">
+    <title>Connexion WebRTC P2P - SimplePeer</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        video {
+            width: 300px;
+            height: auto;
+            border: 1px solid #ccc;
+            margin: 10px 0;
+        }
+        textarea {
+            width: 100%;
+            box-sizing: border-box;
+            margin: 10px 0;
+        }
+    </style>
 </head>
 <body>
-  <div class="app">
-    <!-- HEADER -->
-    <header class="header">
-      <h1>✨ WebRTC Connect</h1>
-      <p>Appel vidéo P2P multi-utilisateurs</p>
-    </header>
+    <h1>Connexion WebRTC P2P avec SimplePeer</h1>
 
-    <!-- CONTROLES -->
-    <section class="controls glass-card">
-      <button id="create-room" class="btn primary">➕ Créer une salle</button>
-      <button id="join-room" class="btn success">🔗 Rejoindre</button>
-      <button id="leave-room" class="btn danger">🚪 Quitter</button>
-    </section>
+    <button id="start">Start (Initiator)</button>
+    <button id="receive">Receive (Receiver)</button>
 
-    <!-- GRILLE VIDÉOS -->
-    <main class="videos-grid" id="videos-container">
-      <div class="video-card glass-card">
-        <video id="my-video" autoplay muted playsinline></video>
-        <span class="label">Moi</span>
-      </div>
-      <!-- Les autres vidéos seront ajoutées dynamiquement -->
-    </main>
+    <h2>Signalisation locale (copier ceci)</h2>
+    <textarea id="offer" rows="10" readonly></textarea>
 
-    <!-- FOOTER -->
-    <footer class="footer">
-      <p>🚀 Démo WebRTC Multi-utilisateurs | Design moderne</p>
-    </footer>
-  </div>
+    <h2>Coller le signal distant ici</h2>
+    <form id="incoming">
+        <textarea rows="10" placeholder="Colle ici l'offre ou la réponse reçue"></textarea>
+        <button type="submit">Envoyer signal</button>
+    </form>
 
-  <!-- Script principal -->
-  <script src="app.js"></script>
-</body>lsgt 
+    <h2>Vidéo de l’émetteur (vous-même)</h2>
+    <video id="emitter-video" autoplay muted playsinline></video>
+
+    <h2>Vidéo du pair distant</h2>
+    <video id="receiver-video" autoplay playsinline></video>
+
+    <!-- SimplePeer -->
+    <script src="https://unpkg.com/simple-peer@latest/simplepeer.min.js"></script>
+
+    <!-- Script principal -->
+    <script>
+        let p // variable globale SimplePeer
+
+        function bindEvents() {
+            p.on('error', function (err) {
+                console.error('Erreur Peer:', err)
+            })
+
+            p.on('signal', function (data) {
+                document.querySelector('#offer').value = JSON.stringify(data)
+            })
+
+            p.on('stream', function (stream) {
+                let video = document.querySelector('#receiver-video')
+                video.srcObject = stream
+                video.play()
+            })
+
+            p.on('connect', function () {
+                console.log("✅ Connecté au pair !")
+            })
+
+            p.on('close', function () {
+                console.log("❌ Connexion fermée.")
+            })
+        }
+
+        function startPeer(initiator) {
+            navigator.mediaDevices.getUserMedia({
+                video: true,
+                audio: true
+            }).then(function (stream) {
+                p = new SimplePeer({
+                    initiator: initiator,
+                    stream: stream,
+                    trickle: false
+                })
+
+                bindEvents()
+
+                let emitterVideo = document.querySelector('#emitter-video')
+                emitterVideo.srcObject = stream
+                emitterVideo.play()
+            }).catch(function (err) {
+                console.error("Erreur getUserMedia:", err)
+                alert("Impossible d'accéder à la caméra/micro.")
+            })
+        }
+
+        document.querySelector('#start').addEventListener('click', function () {
+            startPeer(true)
+        })
+
+        document.querySelector('#receive').addEventListener('click', function () {
+            startPeer(false)
+        })
+
+        document.querySelector('#incoming').addEventListener('submit', function (e) {
+            e.preventDefault()
+            if (!p) {
+                alert("Aucune instance de Peer active.")
+                return
+            }
+            let data = e.target.querySelector('textarea').value
+            try {
+                p.signal(JSON.parse(data))
+            } catch (err) {
+                console.error("❌ Signal JSON invalide:", err)
+                alert("Signal invalide. Vérifie que tu as bien collé le JSON.")
+            }
+        })
+    </script>
+</body>
 </html>
